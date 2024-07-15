@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Customer</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body, html {
+      height: 100%;
+      background: url('images/A3083E5C-EE2E-4DE9-B3A6-FA4299181784.jpg') no-repeat center center fixed;
+      background-size: cover; /* Ensure the background image covers the entire viewport */
+    }
+    .container {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .new-customer-card {
+      background: rgba(255, 255, 255, 0.5); /* Transparent white background */
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    .new-customer-card h1 {
+      margin-bottom: 1.5rem;
+      opacity: 0.75; /* Adjusted opacity for title */
+    }
+    .form-control {
+      margin-bottom: 1rem;
+    }
+    .btn-primary {
+      background-color: #FF735C; /* Custom button color */
+      border-color: #FF735C; /* Custom border color */
+    }
+    .btn-primary:hover {
+      background-color: #e04100; /* Darker shade for hover effect */
+      border-color: #e04100;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <button id="main-page-btn" class="btn btn-secondary">Main Page</button>
+      <div class="ml-auto">
+        <button id="change-password-btn" class="btn btn-secondary">Change Password</button>
+        <button id="logout-btn" class="btn btn-secondary">Logout</button>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="new-customer-card">
+      <h1 class="text-center">New Customer</h1>
+      <form id="new-customer-form">
+        <div class="form-group">
+          <input type="number" id="id" class="form-control" placeholder="ID" required>
+        </div>
+        <div class="form-group">
+          <input type="text" id="firstName" class="form-control" placeholder="First Name" required>
+        </div>
+        <div class="form-group">
+          <input type="text" id="lastName" class="form-control" placeholder="Last Name" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Add Customer</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+      try {
+        localStorage.removeItem('session_login');
+
+        alert("Logged Out");
+        window.location.href = '/login.html';
+      } catch (error) {
+        console.error('Error logging out:', error);
+        alert('Failed to logout');
+      }
+    });
+
+     document.getElementById('main-page-btn').addEventListener('click', () => {
+      window.location.href = '/head-page.html'; // Navigate to head-page.html
+    });
+
+    document.getElementById('change-password-btn').addEventListener('click', () => {
+      window.location.href = '/change-password.html'; // Navigate to change-password.html
+    });
+
+
+    document.getElementById('new-customer-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('id').value;
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+
+      try {
+        const response = await fetch('/new-customer', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id, firstName, lastName })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to add new customer');
+        }
+
+        alert(data.message);
+        fetchCustomers(); // Refresh customer list after adding new customer
+
+      } catch (error) {
+        console.error('Error adding new customer:', error);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchCustomers(); // Fetch customers initially when the page loads
+
+      // Check if user is logged in and show change password button if true
+      if (localStorage.getItem('session_login')) {
+        document.getElementById('change-password-btn').style.display = 'inline-block';
+        document.getElementById('logout-btn').style.display = 'inline-block';
+      } else {
+        alert('You are not logged in!');
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

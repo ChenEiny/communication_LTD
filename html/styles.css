@@ -1,0 +1,155 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensures padding and border are included in element's total width and height */
+  }
+  
+  /* Global styles */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Header and Navigation */
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #007bff; /* Navbar background color */
+    color: #fff;
+  }
+  
+  .navbar {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .navbar button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #0056b3; /* Button color */
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .navbar button:hover {
+    background-color: #004085; /* Darker color on hover */
+  }
+  
+  /* Form and Input Fields */
+  .form-container {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input[type="number"],
+  .form-group input[type="text"] {
+    width: calc(100% - 20px); /* Adjust for padding */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .form-group input[type="number"]:focus,
+  .form-group input[type="text"]:focus {
+    outline: none;
+    border-color: #007bff; /* Focus color */
+  }
+  
+  .form-group button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .form-group button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Customer List */
+  .customer-list {
+    margin-top: 20px;
+  }
+  
+  .customer-list table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .customer-list th,
+  .customer-list td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .customer-list th {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .customer-list tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Alternate row background color */
+  }
+  
+  .customer-list tbody tr:hover {
+    background-color: #e9ecef; /* Hover row background color */
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+  
+    .form-group input[type="number"],
+    .form-group input[type="text"] {
+      width: 100%;
+    }
+  
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+  
+    .navbar button {
+      width: 100%;
+    }
+  }
+  

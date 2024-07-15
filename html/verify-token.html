@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Token</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body, html {
+      height: 100%;
+      background: url('images/A3083E5C-EE2E-4DE9-B3A6-FA4299181784.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .container-fluid {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .verify-token-card {
+      background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    .verify-token-card h1 {
+      margin-bottom: 1.5rem;
+      text-align: center;
+      opacity: 0.5;
+    }
+    .form-control {
+      margin-bottom: 1rem;
+    }
+    .btn-primary {
+      background-color: #ff5100; /* Custom button color */
+      border-color: #ff5100; /* Custom border color */
+    }
+    .btn-primary:hover {
+      background-color: #e04100; /* Darker shade for hover effect */
+      border-color: #e04100;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="verify-token-card">
+      <h1>Verify Token</h1>
+      <form id="verify-token-form">
+        <div class="form-group">
+          <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <input type="text" id="token" class="form-control" placeholder="Enter your token" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Verify Token</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    document.getElementById('verify-token-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const token = document.getElementById('token').value;
+      const response = await fetch('/verify-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, token })
+      });
+      const result = await response.json();
+      if (result.message === 'Token verified') {
+        window.location.href = '/new-password.html';
+      } else {
+        alert(result.error);
+      }
+    });
+  </script>
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
